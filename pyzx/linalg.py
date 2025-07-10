@@ -92,13 +92,12 @@ class Mat2(object):
                 rr = range(rs,rs+1)
 
             if isinstance(cs,slice):
-                cr = range(*cs.indices(self.cols()))
+                cr = cs
             else:
-                cr = range(cs,cs+1)
+                cr = slice(cs,cs+1)
 
             for i,iin in enumerate(rr):
-                for j,jin in enumerate(cr):
-                    self.data[iin][jin] = d[i][j]
+                self.data[iin][cr] = d[i][:]
         else:
             raise IndexError("Expected a pair of indices/slices.")
             
