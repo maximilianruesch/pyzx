@@ -824,6 +824,13 @@ class BaseGraph(Generic[VT, ET], metaclass=DocstringMeta):
         for v in self.vertices():
             self.set_row(v, new_rows[self.row(v)])
 
+    def pack_circuit_qubits(self) -> None:
+        """Compresses the qubits of the graph so that every index is used."""
+        qubits = [self.qubit(v) for v in self.vertices()]
+        new_qubits = pack_indices(qubits)
+        for v in self.vertices():
+            self.set_qubit(v, new_qubits[self.qubit(v)])
+
     def qubit_count(self) -> int:
         """Returns the number of inputs of the graph"""
         return self.num_inputs()
